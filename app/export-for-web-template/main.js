@@ -71,6 +71,29 @@
                 // customised to be used for other things too.
                 var splitTag = splitPropertyTag(tag);
 
+                // AUDIO: src
+                if( splitTag && splitTag.property == "AUDIO" ) {
+                  if('audio' in this) {
+                    this.audio.pause();
+                    this.audio.removeAttribute('src');
+                    this.audio.load();
+                  }
+                  this.audio = new Audio(splitTag.val);
+                  this.audio.play();
+                }
+
+                // AUDIOLOOP: src
+                else if( splitTag && splitTag.property == "AUDIOLOOP" ) {
+                  if('audioLoop' in this) {
+                    this.audioLoop.pause();
+                    this.audioLoop.removeAttribute('src');
+                    this.audioLoop.load();
+                  }
+                  this.audioLoop = new Audio(splitTag.val);
+                  this.audioLoop.play();
+                  this.audioLoop.loop = true;
+                }
+
                 // IMAGE: src
                 if( splitTag && splitTag.property == "IMAGE" ) {
                     var imageElement = document.createElement('img');
@@ -89,6 +112,11 @@
                 // LINKOPEN: url
                 else if( splitTag && splitTag.property == "LINKOPEN" ) {
                     window.open(splitTag.val);
+                }
+
+                // BACKGROUND: src
+                else if( splitTag && splitTag.property == "BACKGROUND" ) {
+                    outerScrollContainer.style.backgroundImage = 'url('+splitTag.val+')';
                 }
 
                 // CLASS: className

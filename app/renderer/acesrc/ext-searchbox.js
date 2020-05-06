@@ -66,11 +66,7 @@ height: 22px;\
 margin: 0;\
 position: relative;\
 }\
-.ace_searchbtn:last-child{\
-border-top-right-radius: 3px;\
-border-bottom-right-radius: 3px;\
-width: 54px;\
-}\
+.ace_searchbtn:last-child,\
 .ace_replacebtn:last-child {\
 border-top-right-radius: 3px;\
 border-bottom-right-radius: 3px;\
@@ -163,7 +159,6 @@ var html = '<div class="ace_search right">\
         <button type="button" action="findNext" class="ace_searchbtn next"></button>\
         <button type="button" action="findPrev" class="ace_searchbtn prev"></button>\
         <button type="button" action="findAll" class="ace_searchbtn" title="Alt-Enter">All</button>\
-        <button type="button" action="matchCount" class="ace_searchbtn">Count</button>\
     </div>\
     <div class="ace_replace_form">\
         <input class="ace_search_field" placeholder="Replace with" spellcheck="false"></input>\
@@ -365,15 +360,6 @@ var SearchBox = function(editor, range, showReplaceForm) {
         this.highlight();
         this.hide();
     };
-    this.matchCount = function() {
-        var count = this.editor.findAll(this.searchInput.value);
-        if (this.searchInput.value == ''){
-            alert(`Enter a value.`);
-        }
-        else{
-        alert(`There ${count != 1 ? 'are' : 'is'} ${count} occurence${count != 1 ? 's' : ''} of this word.`);
-        }
-    }
     this.replace = function() {
         if (!this.editor.getReadOnly())
             this.editor.replace(this.replaceInput.value);
@@ -428,4 +414,3 @@ exports.Search = function(editor, isReplace) {
                 (function() {
                     window.require(["ace/ext/searchbox"], function() {});
                 })();
-            
